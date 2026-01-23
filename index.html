@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeecoGreen | Sustainable & Plastic-Free Living</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#ecfccb', // light green
+                            DEFAULT: '#16a34a', // green-600
+                            dark: '#14532d', // green-900
+                            earth: '#78350f', // brown
+                            sand: '#f5f5f4', // warm gray
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Nunito', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        html { scroll-behavior: smooth; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #16a34a; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-brand-sand text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+            <a href="#" onclick="router.navigate('home'); return false;" class="flex items-center gap-2 group">
+                <img src="logo-green.png" onerror="this.src='https://placehold.co/40x40/16a34a/white?text=NG'" alt="NeecoGreen Logo" class="h-10 w-auto transition-transform group-hover:scale-105">
+                <span class="text-2xl font-bold text-brand-dark tracking-tight">Neeco<span class="text-brand">Green</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 font-medium text-gray-600">
+                <a href="#" onclick="router.navigate('home'); return false;" class="hover:text-brand transition">Home</a>
+                <a href="#" onclick="router.navigate('shop'); return false;" class="hover:text-brand transition">Shop</a>
+                <a href="#" onclick="router.navigate('about'); return false;" class="hover:text-brand transition">Our Mission</a>
+                <a href="#" onclick="router.navigate('contact'); return false;" class="hover:text-brand transition">Contact</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button onclick="router.navigate('cart')" class="relative p-2 text-gray-600 hover:text-brand transition">
+                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-brand-earth text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center transform scale-0 transition-transform">0</span>
+                </button>
+                <button class="md:hidden p-2 text-gray-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 absolute w-full shadow-lg">
+            <a href="#" onclick="router.navigate('home'); return false;" class="block py-2 text-gray-700">Home</a>
+            <a href="#" onclick="router.navigate('shop'); return false;" class="block py-2 text-gray-700">Shop Eco</a>
+            <a href="#" onclick="router.navigate('about'); return false;" class="block py-2 text-gray-700">Mission</a>
+            <a href="#" onclick="router.navigate('contact'); return false;" class="block py-2 text-gray-700">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app" class="flex-grow pt-24 pb-12 px-4 container mx-auto fade-in min-h-[60vh]">
+        <!-- Content injected by JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-16 pb-8 mt-auto">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-white.png" onerror="this.src='https://placehold.co/40x40/white/16a34a?text=NG'" class="h-8 w-auto opacity-90">
+                    <span class="text-xl font-bold">NeecoGreen</span>
+                </div>
+                <p class="text-brand-light/80 text-sm leading-relaxed">Empowering your sustainable journey with plastic-free, ethically sourced products.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-brand-light">Policies</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#" onclick="router.navigate('shipping-policy')" class="hover:text-white transition">Shipping Policy</a></li>
+                    <li><a href="#" onclick="router.navigate('refund-policy')" class="hover:text-white transition">Refund & Returns</a></li>
+                    <li><a href="#" onclick="router.navigate('privacy-policy')" class="hover:text-white transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-brand-light">Contact</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li>support@neecogreen.in</li>
+                    <li>+91 98765 43210</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 mt-12 pt-8 text-center text-sm text-gray-400">
+            <p>&copy; 2026 NeecoGreen India. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        // CONFIGURATION
+        // REPLACE WITH YOUR ACTUAL RAZORPAY KEY ID FROM DASHBOARD
+        const RAZORPAY_KEY_ID = "rzp_test_S7B3Bpptya6ZGZ"; 
+
+        // --- DATA STORE ---
+        const products = [
+            { id: 1, name: "Premium Bamboo Toothbrush (Pack of 4)", price: 299, image: "https://images.unsplash.com/photo-1607613009820-a29f7bb6dc32?auto=format&fit=crop&q=80&w=800", category: "Personal Care", description: "100% biodegradable bamboo handle with charcoal-infused bristles.", badges: ["Plastic Free"], materials: "Moso Bamboo", dimensions: "18cm", weight: 0.1 },
+            { id: 2, name: "Pure Copper Water Bottle (1 Litre)", price: 899, image: "https://images.unsplash.com/photo-1610824352934-c10d87b700cc?auto=format&fit=crop&q=80&w=800", category: "Kitchen", description: "Handcrafted copper bottle that boosts immunity.", badges: ["Ayurvedic"], materials: "Pure Copper", dimensions: "1L", weight: 0.4 },
+            { id: 3, name: "Organic Cotton Tote Bag", price: 199, image: "https://images.unsplash.com/photo-1597484662317-9bd7bdda2907?auto=format&fit=crop&q=80&w=800", category: "Accessories", description: "Sturdy, washable organic cotton tote.", badges: ["Organic"], materials: "Cotton", dimensions: "38x42cm", weight: 0.2 },
+            { id: 4, name: "Neem Wood Comb Set", price: 349, image: "https://images.unsplash.com/photo-1590159763121-7c9fd312190d?auto=format&fit=crop&q=80&w=800", category: "Personal Care", description: "Handcrafted neem wood combs.", badges: ["Handmade"], materials: "Neem Wood", dimensions: "Set of 2", weight: 0.15 },
+            { id: 5, name: "Reusable Steel Straws (Set of 4)", price: 249, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&q=80&w=800", category: "Kitchen", description: "Food-grade stainless steel straws.", badges: ["Reusable"], materials: "Steel", dimensions: "215mm", weight: 0.1 }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        const store = {
+            cart: JSON.parse(localStorage.getItem('neeco_cart')) || [],
+            shipping: 0, 
+
+            addToCart(product, qty = 1) {
+                const existing = this.cart.find(item => item.id === product.id);
+                if (existing) { existing.qty += qty; } 
+                else { this.cart.push({ ...product, qty }); }
+                this.saveCart();
+                renderToast(`Added ${product.name} to cart!`);
+            },
+            removeFromCart(id) {
+                this.cart = this.cart.filter(item => item.id !== id);
+                this.saveCart();
+            },
+            updateQty(id, delta) {
+                const item = this.cart.find(item => item.id === id);
+                if (item) {
+                    item.qty += delta;
+                    if (item.qty <= 0) this.removeFromCart(id);
+                    else this.saveCart();
+                }
+            },
+            clearCart() {
+                this.cart = [];
+                this.shipping = 0;
+                this.saveCart();
+            },
+            saveCart() {
+                localStorage.setItem('neeco_cart', JSON.stringify(this.cart));
+                updateCartUI();
+                if (router.currentPage === 'cart') router.navigate('cart');
+            },
+            getCartTotal() {
+                return this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            },
+            getCartWeight() {
+                // Returns weight in kg. Default 0.5kg if missing.
+                return this.cart.reduce((w, item) => w + ((item.weight || 0.5) * item.qty), 0);
+            },
+            getFinalAmount() {
+                return this.getCartTotal() + this.shipping;
+            }
+        };
+
+        // --- ROUTER ---
+        const router = {
+            currentPage: 'home',
+            navigate(page, params = null) {
+                this.currentPage = page;
+                const app = document.getElementById('app');
+                window.scrollTo(0, 0);
+                document.getElementById('mobile-menu').classList.add('hidden');
+
+                switch(page) {
+                    case 'home': renderHome(app); break;
+                    case 'shop': renderShop(app, params); break;
+                    case 'product': renderProduct(app, params); break;
+                    case 'cart': renderCart(app); break;
+                    case 'checkout': renderCheckout(app); break;
+                    case 'order-success': renderOrderSuccess(app, params); break;
+                    case 'about': renderAbout(app); break;
+                    case 'contact': renderContact(app); break;
+                    case 'shipping-policy': renderPolicy(app, 'Shipping Policy'); break;
+                    case 'refund-policy': renderPolicy(app, 'Refund Policy'); break;
+                    case 'privacy-policy': renderPolicy(app, 'Privacy Policy'); break;
+                    default: renderHome(app);
+                }
+                lucide.createIcons();
+            }
+        };
+
+        // --- PAYMENT & SHIPPING LOGIC ---
+
+        async function calculateShipping(pincode) {
+            const shipDisplay = document.getElementById('shipping-display');
+            const totalDisplay = document.getElementById('total-display');
+            const msg = document.getElementById('pincode-msg');
+            
+            shipDisplay.innerHTML = '<span class="loader w-4 h-4 border-2"></span>';
+            msg.innerText = "Fetching Delhivery rates...";
+            msg.className = "text-xs mt-1 text-brand";
+
+            try {
+                // Call Backend Function
+                const response = await fetch('/.netlify/functions/get-shipping-rate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        pincode: pincode,
+                        weight: store.getCartWeight() 
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.shipping !== undefined) {
+                    store.shipping = data.shipping;
+                    shipDisplay.innerText = `₹${data.shipping}`;
+                    totalDisplay.innerText = `₹${store.getFinalAmount()}`;
+                    msg.innerText = "Shipping calculated successfully via Delhivery";
+                    msg.className = "text-xs mt-1 text-green-600 font-medium";
+                } else {
+                    throw new Error("Invalid rate");
+                }
+            } catch (e) {
+                console.error("Shipping calc error:", e);
+                // Fallback Logic
+                store.shipping = 150; 
+                shipDisplay.innerText = "₹150";
+                totalDisplay.innerText = `₹${store.getFinalAmount()}`;
+                msg.innerText = "Standard shipping applied (Remote area or API unavailable).";
+                msg.className = "text-xs mt-1 text-orange-600";
+            }
+        }
+
+        async function handlePayment(e) {
+            e.preventDefault();
+            
+            // Validation: Ensure Pincode was entered and Shipping calculated
+            if (store.shipping === 0 && store.getCartTotal() > 0) {
+                const pin = document.getElementById('cust-pincode').value;
+                if(pin.length === 6) {
+                    await calculateShipping(pin);
+                } else {
+                    alert("Please enter a valid 6-digit pincode to calculate shipping.");
+                    return;
+                }
+            }
+
+            const btn = document.getElementById('pay-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="loader"></div> Processing...';
+            btn.disabled = true;
+
+            try {
+                const formData = {
+                    name: document.getElementById('cust-name').value,
+                    email: document.getElementById('cust-email').value,
+                    phone: document.getElementById('cust-phone').value,
+                    address: document.getElementById('cust-address').value,
+                    pincode: document.getElementById('cust-pincode').value
+                };
+
+                // 1. Create Order on Server (With FINAL Amount)
+                const finalAmount = store.getFinalAmount();
+                const orderResponse = await fetch('/.netlify/functions/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        amount: finalAmount, 
+                        currency: "INR" 
+                    }) 
+                });
+
+                if (!orderResponse.ok) throw new Error("Server could not create order");
+                const orderData = await orderResponse.json();
+
+                // 2. Open Razorpay
+                const options = {
+                    key: RAZORPAY_KEY_ID, 
+                    amount: orderData.amount, 
+                    currency: orderData.currency,
+                    name: "NeecoGreen",
+                    description: `Order #${orderData.id}`,
+                    image: "logo-green.png",
+                    order_id: orderData.id,
+                    
+                    // 3. Verify Payment
+                    handler: async function (response) {
+                        btn.innerHTML = '<div class="loader"></div> Verifying...';
+                        try {
+                            const verifyResponse = await fetch('/.netlify/functions/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+                            
+                            const verifyData = await verifyResponse.json();
+                            
+                            if (verifyData.status === 'success') {
+                                // 4. Success: Redirect
+                                store.clearCart();
+                                router.navigate('order-success', { id: orderData.id });
+                            } else {
+                                throw new Error('Signature verification failed');
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            alert("Payment successful but verification failed. Contact support.");
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }
+                    },
+                    prefill: {
+                        name: formData.name,
+                        email: formData.email,
+                        contact: formData.phone
+                    },
+                    theme: { color: "#16a34a" },
+                    modal: {
+                        ondismiss: function() {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response){
+                    alert("Payment Failed: " + response.error.description);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+                rzp.open();
+
+            } catch (error) {
+                console.error("Checkout Error:", error);
+                alert("Could not initiate payment. Please try again.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderCheckout(container) {
+            // Reset shipping on load so we force calculation
+            store.shipping = 0;
+
+            container.innerHTML = `
+                <div class="max-w-2xl mx-auto">
+                    <h1 class="text-3xl font-bold mb-8 text-center">Secure Checkout</h1>
+                    <form id="checkout-form" onsubmit="handlePayment(event)" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                        <!-- Contact Info -->
+                        <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><div class="bg-brand-light text-brand-dark w-8 h-8 rounded-full flex items-center justify-center text-sm">1</div> Contact Information</h3>
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="cust-name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="cust-phone" required pattern="[0-9]{10}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="cust-email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                        </div>
+
+                        <!-- Address Info -->
+                        <h3 class="font-bold text-xl mb-6 mt-8 flex items-center gap-2"><div class="bg-brand-light text-brand-dark w-8 h-8 rounded-full flex items-center justify-center text-sm">2</div> Shipping Address</h3>
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Address Line 1</label>
+                            <input type="text" id="cust-address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">City</label>
+                                <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Pincode</label>
+                                <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" 
+                                       oninput="if(this.value.length===6) calculateShipping(this.value)"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                                <p id="pincode-msg" class="text-xs mt-1 text-gray-500">Enter 6-digit pincode to calculate shipping</p>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <div class="bg-gray-50 p-4 rounded-xl mb-8 border border-gray-200 space-y-2">
+                            <div class="flex justify-between text-gray-600 text-sm">
+                                <span>Cart Total</span>
+                                <span>₹${store.getCartTotal()}</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600 text-sm">
+                                <span>Shipping Charges</span>
+                                <span id="shipping-display" class="font-bold text-brand">--</span>
+                            </div>
+                            <div class="h-px bg-gray-200 my-2"></div>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500">Total Payable Amount</p>
+                                    <p class="text-2xl font-bold text-brand-dark" id="total-display">₹${store.getCartTotal()}</p>
+                                </div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg" alt="Razorpay" class="h-6 opacity-70">
+                            </div>
+                        </div>
+
+                          <button type="submit" id="pay-btn" class="w-full bg-brand-dark hover:bg-brand text-white py-4 rounded-xl font-bold shadow-lg transition flex items-center justify-center gap-2">
+                            Pay Securely
+                        </button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function renderHome(container) {
+            container.innerHTML = `
+                <section class="bg-brand-dark rounded-3xl overflow-hidden shadow-2xl relative mb-16 text-white">
+                    <div class="absolute inset-0 bg-black/30 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="relative z-20 py-24 px-6 md:px-12 text-center md:text-left max-w-4xl">
+                        <span class="inline-block py-1 px-3 rounded-full bg-brand text-white text-xs font-bold tracking-wider mb-4 uppercase">Sustainability First</span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Switch to a <br>Plastic-Free Life.</h1>
+                        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-lg">Ethically sourced, eco-friendly essentials delivered to your doorstep.</p>
+                        <button onclick="router.navigate('shop')" class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-brand-light transition shadow-lg">Shop Eco Products</button>
+                    </div>
+                </section>
+                <section class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 text-center">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-light/50"><div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-brand-dark"><i data-lucide="leaf" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-800">100% Natural</h3></div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-light/50"><div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-brand-dark"><i data-lucide="recycle" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-800">Plastic Free</h3></div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-light/50"><div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-brand-dark"><i data-lucide="heart-handshake" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-800">Ethically Sourced</h3></div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-light/50"><div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-brand-dark"><i data-lucide="truck" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-800">Pan India Delivery</h3></div>
+                </section>
+                <section class="mb-16">
+                     <div class="flex justify-between items-end mb-8"><div><h2 class="text-3xl font-bold text-brand-dark">Featured Collections</h2><p class="text-gray-600 mt-2">Curated for your sustainable home.</p></div><a href="#" onclick="router.navigate('shop'); return false;" class="text-brand font-semibold hover:underline flex items-center gap-1">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></a></div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">${products.slice(0, 3).map(product => renderProductCard(product)).join('')}</div>
+                </section>
+            `;
+        }
+
+        function renderShop(container) {
+            container.innerHTML = `
+                <div class="text-center mb-12"><h1 class="text-4xl font-bold text-brand-dark mb-4">Shop Eco-Friendly</h1><p class="text-gray-600 max-w-2xl mx-auto">Discover products that are good for you and better for the planet.</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">${products.map(product => renderProductCard(product)).join('')}</div>
+            `;
+        }
+
+        function renderProductCard(product) {
+            return `
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-100 group flex flex-col h-full">
+                    <div class="relative overflow-hidden aspect-square cursor-pointer" onclick="router.navigate('product', ${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="object-cover w-full h-full transform group-hover:scale-110 transition duration-500">
+                        ${product.badges[0] ? `<span class="absolute top-3 left-3 bg-brand-light text-brand-dark text-xs font-bold px-2 py-1 rounded-md shadow-sm">${product.badges[0]}</span>` : ''}
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="text-xs text-brand font-semibold mb-1 uppercase tracking-wide">${product.category}</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2 cursor-pointer hover:text-brand transition" onclick="router.navigate('product', ${product.id})">${product.name}</h3>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
+                            <span class="text-xl font-bold text-brand-dark">₹${product.price}</span>
+                            <button onclick="store.addToCart(products.find(p => p.id === ${product.id}))" class="bg-gray-100 hover:bg-brand hover:text-white text-gray-800 p-2 rounded-full transition"><i data-lucide="shopping-cart" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProduct(container, productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return router.navigate('shop');
+            container.innerHTML = `
+                <div class="bg-white rounded-3xl shadow-lg p-6 md:p-10">
+                    <button onclick="window.history.back()" class="flex items-center gap-2 text-gray-500 hover:text-brand mb-6 text-sm font-medium"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Shop</button>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="rounded-2xl overflow-hidden bg-gray-50 shadow-inner"><img src="${product.image}" class="w-full h-full object-cover"></div>
+                        <div>
+                            <span class="text-brand font-bold uppercase tracking-widest text-sm">${product.category}</span>
+                            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">${product.name}</h1>
+                            <div class="flex items-center gap-4 mb-6"><span class="text-3xl font-bold text-brand-dark">₹${product.price}</span><span class="text-sm text-green-600 bg-green-50 px-2 py-1 rounded">Inclusive of all taxes</span></div>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-8">${product.description}</p>
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="bg-brand-sand p-4 rounded-xl"><h4 class="font-bold text-brand-earth text-sm mb-1">Materials</h4><p class="text-sm text-gray-700">${product.materials}</p></div>
+                                <div class="bg-brand-sand p-4 rounded-xl"><h4 class="font-bold text-brand-earth text-sm mb-1">Dimensions</h4><p class="text-sm text-gray-700">${product.dimensions}</p></div>
+                            </div>
+                            <button onclick="store.addToCart(products.find(p => p.id === ${product.id}))" class="w-full bg-brand-dark hover:bg-brand text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCart(container) {
+            if (store.cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-20"><div class="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 text-gray-400"><i data-lucide="shopping-cart" class="w-10 h-10"></i></div><h2 class="text-2xl font-bold text-gray-800 mb-2">Your cart is empty</h2><button onclick="router.navigate('shop')" class="bg-brand text-white px-8 py-3 mt-4 rounded-full font-bold hover:bg-brand-dark transition">Start Shopping</button></div>`;
+                return;
+            }
+            container.innerHTML = `
+                <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-4">
+                        ${store.cart.map(item => `
+                            <div class="flex gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100 items-center">
+                                <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg bg-gray-100">
+                                <div class="flex-grow"><h3 class="font-bold text-gray-800">${item.name}</h3><p class="text-brand font-bold">₹${item.price}</p></div>
+                                <div class="flex items-center gap-3 bg-gray-100 rounded-lg p-1"><button onclick="store.updateQty(${item.id}, -1)" class="w-8 h-8 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-gray-50">-</button><span class="font-medium text-sm w-4 text-center">${item.qty}</span><button onclick="store.updateQty(${item.id}, 1)" class="w-8 h-8 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-gray-50">+</button></div>
+                                <button onclick="store.removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-2"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-brand-light">
+                            <h3 class="font-bold text-lg mb-4">Order Summary</h3>
+                            <div class="flex justify-between mb-2 text-gray-600"><span>Subtotal</span><span>₹${store.getCartTotal()}</span></div>
+                            <div class="flex justify-between mb-4 text-gray-600"><span>Shipping</span><span class="text-xs text-gray-400">(Calculated at Checkout)</span></div>
+                            <button onclick="router.navigate('checkout')" class="w-full bg-brand-dark hover:bg-brand text-white py-4 rounded-xl font-bold shadow-md transition">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderOrderSuccess(container, params) {
+            container.innerHTML = `
+                <div class="text-center py-16 max-w-lg mx-auto">
+                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check" class="w-12 h-12 text-brand"></i></div>
+                    <h1 class="text-3xl font-bold text-brand-dark mb-4">Order Confirmed!</h1>
+                    <p class="text-gray-600 mb-2">Thank you for making an eco-friendly choice.</p>
+                    <p class="text-sm text-gray-500 mb-8">Order ID: <span class="font-mono font-bold text-gray-800">${params.id}</span></p>
+                    <button onclick="router.navigate('shop')" class="bg-brand text-white px-8 py-3 rounded-full font-bold hover:bg-brand-dark transition">Continue Shopping</button>
+                </div>
+            `;
+        }
+
+        function renderAbout(container) {
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto py-8">
+                    <h1 class="text-4xl font-bold text-brand-dark mb-6 text-center">Our Story</h1>
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg mb-12"><p class="text-lg text-gray-700 leading-relaxed">NeecoGreen started with a simple question: "Why is it so hard to find plastic-free alternatives in India?" We partner with local artisans to bring you products that are kind to the earth and your wallet.</p></div>
+                </div>
+            `;
+        }
+
+        function renderContact(container) {
+            container.innerHTML = `<div class="max-w-3xl mx-auto py-8"><h1 class="text-3xl font-bold text-center mb-8">Get in Touch</h1><div class="bg-brand-dark text-white p-8 rounded-2xl shadow-lg text-center"><p class="text-lg">support@neecogreen.in</p><p>+91 98765 43210</p></div></div>`;
+        }
+
+        function renderPolicy(container, title) {
+            container.innerHTML = `<div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-gray-100 my-8"><h1 class="text-3xl font-bold mb-6 text-gray-900 border-b pb-4">${title}</h1><p class="text-gray-600">Standard ${title} text goes here...</p></div>`;
+        }
+
+        // --- UTILS ---
+        function updateCartUI() {
+            const count = store.cart.reduce((acc, item) => acc + item.qty, 0);
+            const badge = document.getElementById('cart-count');
+            badge.innerText = count;
+            badge.classList.toggle('scale-0', count === 0);
+        }
+
+        function renderToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 right-5 bg-brand-dark text-white px-6 py-3 rounded-lg shadow-xl z-50 flex items-center gap-2 fade-in';
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5 text-brand-light"></i> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 3000);
+            lucide.createIcons();
+        }
+
+        window.onload = () => { updateCartUI(); router.navigate('home'); };
+    </script>
+
+</body>
+<!-- redeploy -->
+</html>
