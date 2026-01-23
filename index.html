@@ -283,6 +283,56 @@
             <p>If you have questions regarding this policy, please contact us at <a href="mailto:support@neecogreen.in" class="text-brand font-bold hover:underline">support@neecogreen.in</a>.</p>
         `;
 
+        const refundPolicyText = `
+            <p><strong>Effective Date:</strong> January 1, 2026</p>
+            <p>NeecoGreen wants every purchase to feel good for you and the planet. This Refund & Returns Policy explains when returns are accepted, how refunds are processed, and what to do if an item arrives damaged or incorrect.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">1. Return Window</h3>
+            <p>Return requests must be initiated within <strong>7 days</strong> of delivery. Requests submitted after 7 days may not be eligible for return or refund.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">2. Eligibility Criteria</h3>
+            <p>Items are eligible for return if they are:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Unused, unwashed, and in the same condition as delivered</li>
+                <li>Returned with original packaging, tags, and inserts</li>
+                <li>Accompanied by proof of purchase (order ID or invoice)</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">3. Non-Returnable Items</h3>
+            <p>For hygiene and safety reasons, the following items are not eligible for return:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Personal care items (e.g., toothbrushes, combs) once opened</li>
+                <li>Reusable straws and water bottles once used</li>
+                <li>Clearance or final-sale items (if marked at purchase)</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">4. Damaged, Defective, or Wrong Items</h3>
+            <p>If an item arrives damaged, defective, or incorrect, report the issue within <strong>24 hours</strong> of delivery. Share photos of the product and packaging to help with verification. A replacement or full refund will be arranged at no extra cost.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">5. Return Process</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Email <a href="mailto:support@neecogreen.in" class="text-brand font-bold hover:underline">support@neecogreen.in</a> with your order ID and reason for return</li>
+                <li>Once approved, a pickup will be scheduled or a return shipping address will be provided</li>
+                <li>Items must be packed securely to avoid transit damage</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">6. Refunds</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Refunds are processed after the returned item passes quality checks</li>
+                <li>Refunds are credited to the original payment method used at checkout</li>
+                <li>Processing time: 5-7 business days after inspection</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">7. Return Shipping Fees</h3>
+            <p>For approved returns due to damages, defects, or wrong items, return shipping is covered by NeecoGreen. For other eligible returns, shipping charges may be deducted from the refund amount.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">8. Cancellations</h3>
+            <p>Orders can be cancelled before shipment. If an order has already been shipped, cancellation is not possible and the standard return process will apply after delivery.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">9. Contact Us</h3>
+            <p>For any return or refund questions, reach out at <a href="mailto:support@neecogreen.in" class="text-brand font-bold hover:underline">support@neecogreen.in</a> or call +91 98765 43210 (Mon-Sat, 10:00 AM - 6:00 PM IST).</p>
+        `;
+
         // --- ROUTER ---
         const router = {
             currentPage: 'home',
@@ -302,7 +352,7 @@
                     case 'about': renderAbout(app); break;
                     case 'contact': renderContact(app); break;
                     case 'shipping-policy': renderPolicy(app, 'Shipping Policy', shippingPolicyText); break;
-                    case 'refund-policy': renderPolicy(app, 'Refund Policy'); break;
+                    case 'refund-policy': renderPolicy(app, 'Refund & Returns', refundPolicyText); break;
                     case 'privacy-policy': renderPolicy(app, 'Privacy Policy', privacyPolicyText); break;
                     case '404': render404(app); break;
                     default: render404(app);
