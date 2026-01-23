@@ -170,6 +170,85 @@
             }
         };
 
+        const shippingPolicyText = `
+            <p><strong>Effective Date:</strong> January 1, 2026</p>
+            <p>At NeecoGreen, we are committed to delivering your eco-friendly products safely and efficiently. This Shipping Policy outlines our shipping processes, delivery timelines, and associated charges to ensure a transparent shopping experience.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">1. Shipping Coverage</h3>
+            <p>We currently ship to all serviceable pin codes across India through our trusted logistics partner, Delhivery. Delivery availability is verified at checkout based on your pin code.</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Metro Cities:</strong> Delhi NCR, Mumbai, Bangalore, Chennai, Kolkata, Hyderabad, Pune, Ahmedabad</li>
+                <li><strong>Tier 2 & 3 Cities:</strong> All major towns and cities with Delhivery coverage</li>
+                <li><strong>Remote Areas:</strong> Available with extended delivery timelines</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">2. Delivery Timelines</h3>
+            <p>Estimated delivery times vary based on your location:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Metro Cities:</strong> 3-5 business days</li>
+                <li><strong>Tier 2 Cities:</strong> 5-7 business days</li>
+                <li><strong>Tier 3 & Remote Areas:</strong> 7-10 business days</li>
+            </ul>
+            <p class="mt-2 text-sm text-gray-500"><em>Note: Delivery times may be extended during sales, festive seasons, or due to unforeseen circumstances such as natural disasters or public holidays.</em></p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">3. Shipping Charges</h3>
+            <p>Shipping charges are calculated dynamically based on your delivery pin code and the total weight of your order. The exact shipping cost will be displayed at checkout after you enter your pin code.</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Standard Shipping:</strong> Calculated via Delhivery API based on weight and destination</li>
+                <li><strong>Remote Area Surcharge:</strong> Additional charges may apply for remote locations</li>
+                <li><strong>Free Shipping:</strong> Occasionally offered during promotional campaigns</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">4. Order Processing</h3>
+            <p>All orders are processed within 1-2 business days after successful payment verification.</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Orders placed before 2:00 PM IST on business days are typically dispatched the same day</li>
+                <li>Orders placed after 2:00 PM IST or on weekends/holidays will be processed the next business day</li>
+                <li>You will receive an order confirmation email immediately after placing your order</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">5. Order Tracking</h3>
+            <p>Once your order is dispatched, you will receive:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>A shipment confirmation email with your tracking number (AWB)</li>
+                <li>SMS updates on your registered mobile number</li>
+                <li>You can track your order on the Delhivery website using your AWB number</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">6. Packaging</h3>
+            <p>True to our commitment to sustainability, all NeecoGreen orders are packaged using:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Eco-Friendly Materials:</strong> Recycled cardboard boxes and paper-based cushioning</li>
+                <li><strong>Plastic-Free Packaging:</strong> No single-use plastics, bubble wrap, or styrofoam</li>
+                <li><strong>Minimal Packaging:</strong> Right-sized boxes to reduce waste</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">7. Delivery Attempts</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Our delivery partner will make up to 3 delivery attempts</li>
+                <li>If you are unavailable, the delivery executive will contact you on your registered phone number</li>
+                <li>After 3 unsuccessful attempts, the order will be returned to our warehouse</li>
+                <li>For re-delivery, additional shipping charges may apply</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">8. Damaged or Lost Shipments</h3>
+            <p>In the rare event that your order arrives damaged or is lost in transit:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Report the issue within 24 hours of delivery (for damaged items)</li>
+                <li>Provide photographs of the damaged product and packaging</li>
+                <li>We will arrange a replacement or full refund at no additional cost</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">9. Contact Us</h3>
+            <p>For any shipping-related queries, please reach out to us:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Email:</strong> <a href="mailto:support@neecogreen.in" class="text-brand font-bold hover:underline">support@neecogreen.in</a></li>
+                <li><strong>Phone:</strong> +91 98765 43210</li>
+                <li><strong>Hours:</strong> Monday to Saturday, 10:00 AM - 6:00 PM IST</li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-500">We strive to resolve all shipping concerns within 24-48 hours.</p>
+        `;
+
         const privacyPolicyText = `
             <p><strong>Effective Date:</strong> January 1, 2026</p>
             <p>At NeecoGreen, we value your trust and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you visit our website or purchase our eco-friendly products.</p>
@@ -222,7 +301,7 @@
                     case 'order-success': renderOrderSuccess(app, params); break;
                     case 'about': renderAbout(app); break;
                     case 'contact': renderContact(app); break;
-                    case 'shipping-policy': renderPolicy(app, 'Shipping Policy'); break;
+                    case 'shipping-policy': renderPolicy(app, 'Shipping Policy', shippingPolicyText); break;
                     case 'refund-policy': renderPolicy(app, 'Refund Policy'); break;
                     case 'privacy-policy': renderPolicy(app, 'Privacy Policy', privacyPolicyText); break;
                     case '404': render404(app); break;
