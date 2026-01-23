@@ -170,6 +170,40 @@
             }
         };
 
+        const privacyPolicyText = `
+            <p><strong>Effective Date:</strong> January 1, 2026</p>
+            <p>At NeecoGreen, we value your trust and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you visit our website or purchase our eco-friendly products.</p>
+            
+            <h3 class="text-xl font-bold text-gray-800 mt-6">1. Information We Collect</h3>
+            <p>We collect information necessary to process your orders and improve your shopping experience:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Personal Identification:</strong> Name, email address, phone number, and shipping address.</li>
+                <li><strong>Payment Information:</strong> We do not store your card details. Payments are processed securely via Razorpay.</li>
+                <li><strong>Usage Data:</strong> Information on how you access and use our website.</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">2. How We Use Your Information</h3>
+            <p>Your data is used for the following purposes:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>Processing and delivering your orders.</li>
+                <li>Sending order updates and tracking information.</li>
+                <li> improving our website and customer service.</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">3. Data Sharing</h3>
+            <p>We respect your privacy and do not sell your personal data. We only share information with trusted third-party service providers essential for our operations:</p>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>Logistics Partners:</strong> To deliver your products (e.g., Delhivery).</li>
+                <li><strong>Payment Gateways:</strong> To securely process payments (e.g., Razorpay).</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">4. Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal data from unauthorized access, alteration, or disclosure.</p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6">5. Contact Us</h3>
+            <p>If you have questions regarding this policy, please contact us at <a href="mailto:support@neecogreen.in" class="text-brand font-bold hover:underline">support@neecogreen.in</a>.</p>
+        `;
+
         // --- ROUTER ---
         const router = {
             currentPage: 'home',
@@ -190,7 +224,7 @@
                     case 'contact': renderContact(app); break;
                     case 'shipping-policy': renderPolicy(app, 'Shipping Policy'); break;
                     case 'refund-policy': renderPolicy(app, 'Refund Policy'); break;
-                    case 'privacy-policy': renderPolicy(app, 'Privacy Policy'); break;
+                    case 'privacy-policy': renderPolicy(app, 'Privacy Policy', privacyPolicyText); break;
                     case '404': render404(app); break;
                     default: render404(app);
                 }
@@ -598,8 +632,9 @@
             container.innerHTML = `<div class="max-w-3xl mx-auto py-8"><h1 class="text-3xl font-bold text-center mb-8">Get in Touch</h1><div class="bg-brand-dark text-white p-8 rounded-2xl shadow-lg text-center"><p class="text-lg">support@neecogreen.in</p><p>+91 98765 43210</p></div></div>`;
         }
 
-        function renderPolicy(container, title) {
-            container.innerHTML = `<div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-gray-100 my-8"><h1 class="text-3xl font-bold mb-6 text-gray-900 border-b pb-4">${title}</h1><p class="text-gray-600">Standard ${title} text goes here...</p></div>`;
+        function renderPolicy(container, title, content) {
+            const body = content ? content : `<p>Standard ${title} text goes here...</p>`;
+            container.innerHTML = `<div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-gray-100 my-8"><h1 class="text-3xl font-bold mb-6 text-gray-900 border-b pb-4">${title}</h1><div class="text-gray-600 space-y-4">${body}</div></div>`;
         }
 
         function render404(container) {
