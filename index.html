@@ -266,7 +266,9 @@
                     email: document.getElementById('cust-email').value,
                     phone: document.getElementById('cust-phone').value,
                     address: document.getElementById('cust-address').value,
-                    pincode: document.getElementById('cust-pincode').value
+                    pincode: document.getElementById('cust-pincode').value,
+                    city: document.getElementById('cust-city').value || '',
+                    state: document.getElementById('cust-state').value || ''
                 };
 
                 // 1. Create Order on Server (With FINAL Amount)
@@ -295,8 +297,10 @@
                     
                     // 3. Verify Payment
                     handler: async function (response) {
-                        btn.innerHTML = '<div class="loader"></div> Verifying...';
+                        btn.innerHTML = '<div class="loader"></div> Verifying Payment...';
+                        
                         try {
+                            // --- STEP A: Verify Signature ---
                             const verifyResponse = await fetch('/.netlify/functions/verify-payment', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
@@ -309,16 +313,47 @@
                             
                             const verifyData = await verifyResponse.json();
                             
-                            if (verifyData.status === 'success') {
-                                // 4. Success: Redirect
-                                store.clearCart();
-                                router.navigate('order-success', { id: orderData.id });
-                            } else {
+                            if (verifyData.status !== 'success') {
                                 throw new Error('Signature verification failed');
                             }
+
+                            // --- STEP B: Create Shipment (After Payment Success) ---
+                            btn.innerHTML = '<div class="loader"></div> Creating Shipment...';
+
+                            try {
+                                const shipmentResponse = await fetch('/.netlify/functions/create-shipment', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        order_id: orderData.id,
+                                        customer: formData, // Uses the formData captured in handlePayment scope
+                                        items: store.cart,
+                                        shipping_amount: store.shipping
+                                    })
+                                });
+
+                                const shipmentData = await shipmentResponse.json();
+
+                                if (!shipmentData.success) {
+                                    console.warn("Shipment API Failed:", shipmentData);
+                                    // Requirement: Alert user but DO NOT stop the success flow
+                                    alert(`Payment successful, but shipment generation failed. Please contact support with Order ID: ${orderData.id}`);
+                                }
+
+                            } catch (shipError) {
+                                console.error("Shipment Network Error:", shipError);
+                                alert("Payment successful, but we couldn't connect to the shipping server. Please contact support.");
+                            }
+
+                            // --- STEP C: Finalize & Redirect ---
+                            // We redirect regardless of shipment success because money was deducted
+                            store.clearCart();
+                            router.navigate('order-success', { id: orderData.id });
+
                         } catch (err) {
-                            console.error(err);
-                            alert("Payment successful but verification failed. Contact support.");
+                            console.error("Payment Process Error:", err);
+                            alert("Payment verification failed. If money was deducted, please contact support.");
+                            // Only reset button if the PAYMENT itself failed/unverified
                             btn.innerHTML = originalText;
                             btn.disabled = false;
                         }
@@ -387,11 +422,15 @@
                             <input type="text" id="cust-address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
                         </div>
                         <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div>
+                             <div>
                                 <label class="block text-sm font-bold text-gray-700 mb-1">City</label>
-                                <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                                <input type="text" id="cust-city" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
                             </div>
                             <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">State</label>
+                                <input type="text" id="cust-state" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand outline-none">
+                            </div>
+                            <div class="col-span-2">
                                 <label class="block text-sm font-bold text-gray-700 mb-1">Pincode</label>
                                 <input type="text" id="cust-pincode" required pattern="[0-9]{6}" maxlength="6" 
                                        oninput="if(this.value.length===6) calculateShipping(this.value)"
