@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NeecoGreen | Eco-friendly products for a greener tomorrow</title>
     <meta name="description" content="Eco-friendly products for a greener tomorrow. Premium sustainable, plastic-free living.">
+    <!--favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -156,7 +158,11 @@
         <div class="container mx-auto px-6 h-20 flex items-center justify-between">
             <!-- Logo -->
             <a href="#" onclick="router.navigate('home'); return false;" class="flex items-center gap-3 group relative z-50">
-                <img src="green-logo.png" alt="NeecoGreen" class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+             <img src="green-logo.png" alt="NeecoGreen"
+     class="h-32 sm:h-40 md:h-48 lg:h-56
+            w-auto object-contain
+            transition-transform duration-300 group-hover:scale-105">
+
                 <!-- Fallback text if image fails to load properly visually, though requirement says use logos -->
                 <!-- <span class="font-display text-2xl font-bold text-brand-primary tracking-tight">NeecoGreen</span> -->
             </a>
@@ -210,7 +216,7 @@
             <div class="grid md:grid-cols-4 gap-12 lg:gap-16 mb-16">
                 <div class="md:col-span-1 space-y-6">
                     <!-- Footer Logo: Green text or logo image? Requirement says "Clean footer with: Logo" -->
-                    <img src="green-logo.png" alt="NeecoGreen" class="h-8 w-auto">
+                    <img src="green-logo.png" alt="NeecoGreen" class="h-32 md:h-36 w-auto">
                     <p class="text-gray-500 text-sm leading-relaxed">
                         Redefining daily essentials with a commitment to our planet. 100% plastic-free, ethically sourced, and mindfully crafted.
                     </p>
@@ -394,7 +400,7 @@
 
                         <div class="relative z-10 w-full px-8 md:px-20 grid md:grid-cols-2 gap-12 items-center">
                             <div class="text-left">
-                                <img src="green-logo.png" alt="Brand" class="h-16 mb-8 animate-fade-in-up">
+                                <img src="green-logo.png" alt="Brand" class="h-20 mb-8 animate-fade-in-up">
                                 <h1 class="text-4xl md:text-6xl font-extrabold font-display text-brand-dark mb-6 leading-[1.1] animate-fade-in-up delay-100">
                                     Eco-friendly products for a <span class="text-brand-secondary">greener tomorrow</span>
                                 </h1>
