@@ -6,68 +6,82 @@
     <title>Page Not Found | NeecoGreen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            light: '#ecfccb', // light green
+                            light: '#dcfce7', // green-100
                             DEFAULT: '#16a34a', // green-600
                             dark: '#14532d', // green-900
-                            earth: '#78350f', // brown
-                            sand: '#f5f5f4', // warm gray
+                            earth: '#3f2e21', // dark brown
+                            sand: '#fafaf9', // stone-50
+                            surface: '#ffffff',
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Nunito', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Outfit"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 10px 40px -5px rgba(0, 0, 0, 0.1)',
+                        'glow': '0 0 20px rgba(22, 163, 74, 0.3)'
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Nunito', sans-serif; }
-        .fade-in { animation: fadeIn 0.4s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            background-color: #fafaf9;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
     </style>
 </head>
-<body class="bg-brand-sand text-gray-800 flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen text-gray-800 antialiased">
 
     <!-- Navigation -->
-    <header class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 group">
-                <img src="logo-green.png" onerror="this.src='https://placehold.co/40x40/16a34a/white?text=NG'" alt="NeecoGreen Logo" class="h-10 w-auto transition-transform group-hover:scale-105">
-                <span class="text-2xl font-bold text-brand-dark tracking-tight">Neeco<span class="text-brand">Green</span></span>
+    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2.5 group">
+                <div class="relative w-10 h-10 flex items-center justify-center bg-brand-light/50 rounded-xl overflow-hidden group-hover:bg-brand-light transition-colors duration-300">
+                     <img src="logo-green.png" onerror="this.src='https://placehold.co/40x40/16a34a/white?text=N'" alt="NeecoGreen Logo" class="h-6 w-auto object-contain transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                </div>
+                <span class="text-xl md:text-2xl font-bold text-brand-dark tracking-tight">Neeco<span class="text-brand">Green</span></span>
             </a>
-            <nav class="hidden md:flex items-center gap-8 font-medium text-gray-600">
-                <a href="/" class="hover:text-brand transition">Home</a>
-                <a href="/#shop" class="hover:text-brand transition">Shop</a>
-                <a href="/#about" class="hover:text-brand transition">Our Mission</a>
-                <a href="/#contact" class="hover:text-brand transition">Contact</a>
+            <nav class="hidden md:flex items-center gap-10 font-medium text-sm text-gray-600">
+                <a href="/" class="hover:text-brand-dark transition-colors">Home</a>
+                <a href="/#shop" class="hover:text-brand-dark transition-colors">Shop</a>
+                <a href="/#about" class="hover:text-brand-dark transition-colors">Mission</a>
+                <a href="/#contact" class="hover:text-brand-dark transition-colors">Contact</a>
             </nav>
-            <div class="flex items-center gap-4">
-                <a href="/#cart" class="relative p-2 text-gray-600 hover:text-brand transition">
-                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
-                </a>
-            </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow flex items-center justify-center pt-24 pb-12 px-4 container mx-auto fade-in">
-        <div class="text-center max-w-lg">
-            <div class="bg-brand-light/50 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8">
-                <i data-lucide="leaf" class="w-16 h-16 text-brand"></i>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center pt-32 pb-20 px-4 container mx-auto">
+        <div class="text-center max-w-lg animate-fade-in-up">
+            <div class="bg-red-50 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8 text-red-500 shadow-glow">
+                <i data-lucide="leaf" class="w-16 h-16 transform rotate-180"></i>
             </div>
-            <h1 class="text-6xl font-extrabold text-brand-dark mb-4">404</h1>
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Oops! This path has grown over.</h2>
-            <p class="text-gray-600 mb-10 text-lg">The page you're looking for doesn't exist or has been moved. Let's get you back to your sustainable journey.</p>
-            <a href="/" class="inline-block bg-brand-dark hover:bg-brand text-white px-10 py-4 rounded-full font-bold text-lg transition shadow-lg flex items-center justify-center gap-2 mx-auto w-fit">
+            <h1 class="text-6xl font-bold text-gray-900 mb-6">404</h1>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Page Not Found</h2>
+            <p class="text-gray-500 mb-10 text-lg leading-relaxed">The path you are looking for has grown over. Let's get you back to the main trail.</p>
+            <a href="/" class="inline-flex bg-brand text-white hover:bg-brand-dark px-10 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl items-center justify-center gap-2">
                 <i data-lucide="home" class="w-5 h-5"></i>
                 Return Home
             </a>
@@ -75,33 +89,15 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark text-white pt-16 pb-8 mt-auto">
-        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <img src="logo-white.png" onerror="this.src='https://placehold.co/40x40/white/16a34a?text=NG'" class="h-8 w-auto opacity-90">
-                    <span class="text-xl font-bold">NeecoGreen</span>
-                </div>
-                <p class="text-brand-light/80 text-sm leading-relaxed">Empowering your sustainable journey with plastic-free, ethically sourced products.</p>
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                 <div class="w-8 h-8 flex items-center justify-center bg-brand text-white rounded-lg">
+                    <i data-lucide="leaf" class="w-4 h-4"></i>
+                 </div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">NeecoGreen</span>
             </div>
-            <div>
-                <h4 class="font-bold text-lg mb-4 text-brand-light">Policies</h4>
-                <ul class="space-y-2 text-sm text-gray-300">
-                    <li><a href="/#shipping-policy" class="hover:text-white transition">Shipping Policy</a></li>
-                    <li><a href="/#refund-policy" class="hover:text-white transition">Refund & Returns</a></li>
-                    <li><a href="/#privacy-policy" class="hover:text-white transition">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-lg mb-4 text-brand-light">Contact</h4>
-                <ul class="space-y-2 text-sm text-gray-300">
-                    <li>support@neecogreen.in</li>
-                    <li>+91 98765 43210</li>
-                </ul>
-            </div>
-        </div>
-        <div class="border-t border-white/10 mt-12 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2026 NeecoGreen India. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">&copy; 2026 NeecoGreen India. All rights reserved.</p>
         </div>
     </footer>
 
