@@ -613,8 +613,7 @@
                 document.getElementById('mobile-menu-overlay').classList.add('opacity-0', 'pointer-events-none');
 
                 // Fade out old content
-                app.style.opacity = '0';
-                app.style.transform = 'translateY(10px)';
+                app.classList.add('opacity-0', 'translate-x-4');
 
                 setTimeout(() => {
                     switch(page) {
@@ -637,13 +636,16 @@
                     initScrollAnimations();
                     
                     // Fade in new content
-                    app.style.opacity = '1';
-                    app.style.transform = 'translateY(0)';
+                    app.classList.remove('opacity-0', 'translate-x-4');
                 }, 200);
             }
         };
 
         window.router = router; // Expose to window for inline HTML onclicks
+
+        function goBackToShop() {
+            router.navigate('shop');
+        }
 
         // --- AUTH UI HANDLERS ---
         let isLoginMode = true;
@@ -1144,6 +1146,12 @@
         async function renderMyOrders(container) {
             container.innerHTML = `
                 <div class="container mx-auto px-6 py-8">
+                    <!-- Back Button -->
+                    <button onclick="goBackToShop()" class="flex items-center gap-2 text-gray-600 hover:text-brand-primary transition-colors mb-6 group p-2 -ml-2 touch-manipulation">
+                        <i data-lucide="arrow-left" class="w-6 h-6 group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="font-medium text-lg">Back to Shop</span>
+                    </button>
+
                     <h1 class="text-3xl font-bold font-display mb-10 text-gray-900 animate-fade-in-up">My Orders</h1>
                     <div id="orders-list" class="space-y-8 animate-fade-in-up delay-100">
                         <div class="text-center py-10"><div class="loader"></div> Loading orders...</div>
