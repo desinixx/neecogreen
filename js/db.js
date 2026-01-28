@@ -4,7 +4,10 @@ import {
     query, 
     where, 
     getDocs, 
-    orderBy 
+    orderBy,
+    doc,
+    setDoc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
@@ -46,6 +49,34 @@ const dbService = {
             return { success: true, orders };
         } catch (error) {
             console.error("Error fetching orders: ", error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Update User Cart
+    async updateUserCart(userId, cart) {
+        try {
+            await setDoc(doc(db, "users", userId), { cart: cart }, { merge: true });
+            return { success: true };
+        } catch (error) {
+            console.error("Error updating cart: ", error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Get User Cart
+    async getUserCart(userId) {
+        try {
+            const docRef = doc(db, "users", userId);
+            const docSnap = await getDoc(docRef);
+            
+            if (docSnap.exists() && docSnap.data().cart) {
+                return { success: true, cart: docSnap.data().cart };
+            } else {
+                return { success: true, cart: [] };
+            }
+        } catch (error) {
+            console.error("Error getting cart: ", error);
             return { success: false, error: error.message };
         }
     }

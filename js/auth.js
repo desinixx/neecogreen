@@ -62,7 +62,16 @@ window.authService = authService;
 // Auth State Listener
 onAuthStateChanged(auth, async (user) => {
     window.currentUser = user;
-    updateAuthUI(user);
+    
+    if (typeof window.updateAuthUI === 'function') {
+        window.updateAuthUI(user);
+    } else {
+        updateAuthUI(user);
+    }
+    
+    if (window.store && window.store.onAuthChange) {
+        await window.store.onAuthChange(user);
+    }
     
     // If on checkout page and user logs out, redirect to home
     if (!user && window.router && window.router.currentPage === 'checkout') {
