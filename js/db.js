@@ -7,7 +7,8 @@ import {
     orderBy,
     doc,
     setDoc,
-    getDoc
+    getDoc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
@@ -77,6 +78,18 @@ const dbService = {
             }
         } catch (error) {
             console.error("Error getting cart: ", error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Update Order
+    async updateOrder(orderId, updateData) {
+        try {
+            const docRef = doc(db, "orders", orderId);
+            await updateDoc(docRef, updateData);
+            return { success: true };
+        } catch (error) {
+            console.error("Error updating order: ", error);
             return { success: false, error: error.message };
         }
     }
