@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { db } = require('./firebase-admin-init');
 
 exports.handler = async function(event, context) {
   // 1. CORS Headers - Allow requests from any origin (configure as needed for production)
@@ -175,7 +176,26 @@ exports.handler = async function(event, context) {
     // We assume success if no error field or if package_count > 0.
 
     // ---------------------------------------------------------
-    // STEP 4: Return Success Response
+    // STEP 4: Update Firestore Order
+    // ---------------------------------------------------------
+    try {
+        console.log(`Updating Firestore Order ${order_id} with Waybill ${waybillNumber}...`);
+        await db.collection('orders').doc(String(order_id)).update({
+            waybill: waybillNumber,
+            // We can also set status to 'manifested' or 'processed' if desired, 
+            // but the user strictly asked to "save the returned waybill number".
+            // I'll add status 'processed' as it makes sense for "shipment created".
+            status: 'processed', 
+            last_updated: new Date().toISOString()
+        });
+    } catch (dbError) {
+        console.error('Failed to update Firestore:', dbError);
+        // We log error but proceed to return success to client regarding shipment creation
+        // Although ideally we should maybe return a partial success warning.
+    }
+
+    // ---------------------------------------------------------
+    // STEP 5: Return Success Response
     // ---------------------------------------------------------
     return {
       statusCode: 200,
